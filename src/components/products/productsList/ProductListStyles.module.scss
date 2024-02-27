@@ -1,0 +1,15 @@
+.List_body {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 98%;
+  height: 85%;
+
+  margin: 10px;
+  padding: 10px;
+
+  background: rgba(255, 127, 80, 0);
+  overflow-y: auto;
+}

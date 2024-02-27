@@ -1,0 +1,15 @@
+.Bar_body {
+  position: relative;
+
+  width: 99%;
+  height: 50px;
+  max-height: 50px;
+
+  margin: 5px;
+  padding: 3px;
+
+  display: flex;
+  flex-direction: row;
+
+  background: rgba(220, 205, 205, 0);
+}
