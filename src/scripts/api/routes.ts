@@ -1,4 +1,4 @@
-const domain = `http://api.valantis.store:40000/`
+const domain = `https://api.valantis.store:41000/`
 export const routes = {
     domain: domain,
     actions: {

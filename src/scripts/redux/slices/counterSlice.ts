@@ -35,6 +35,7 @@ const counterSlice = createSlice({
             // Вызывается, если запрос успешно выполнился
             .addCase(fetchUserById.fulfilled, (state, action) => {
                 // Добавляем пользователя
+                console.log(state)
                 usersAdapter.addOne(state, action);
                 state.loadingStatus = 'idle';
                 state.error = null;
