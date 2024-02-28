@@ -1,8 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import counterReducer from './counterSlice';
+import productSlice from "./productsSlice";
+import productItemSlice from "@/scripts/redux/slices/productItemsSlice";
 
-export default configureStore({
-    reducer: {
-        counter: counterReducer,
-    },
+const rootReducer = combineReducers({
+    itemsList: productItemSlice,
+    products: productSlice,
+    counter: counterReducer,
+})
+export const store = configureStore({
+    reducer: rootReducer,
 });
+
+export type RootState = ReturnType<typeof rootReducer>

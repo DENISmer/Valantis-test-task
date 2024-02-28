@@ -1,11 +1,16 @@
 import PC_S from '@/components/products/productsCard/ProductCardStyles.module.scss'
-export const ProductCard: React.FC = () => {
+import {item} from "@/scripts/redux/slices/productsSlice";
+interface Props {
+    data: item
+}
+export const ProductCard: React.FC<Props> = ({data}) => {
+
     return (<>
         <div className={PC_S.Card_body}>
-            <span>ids</span>
-            <span>cost</span>
-            <span>name</span>
-            <span>smth</span>
+            <span>{data.product}</span>
+            <span>{data.brand}</span>
+            <span>{data.price}</span>
+            <span>{data.id}</span>
             card body
         </div>
     </>)
