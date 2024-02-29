@@ -1,4 +1,15 @@
+import dayjs from "dayjs";
+
 const domain = `https://api.valantis.store:41000/`
+
+const setCurrentMSKUTC = () => {
+    const currentDate = new Date()
+    const res = `${currentDate.getUTCFullYear()}${currentDate.getUTCMonth() + 1 < 10 ? `0${currentDate.getUTCMonth() +1}` : currentDate.getUTCMonth() + 1}${currentDate.getUTCDate()}`
+    return res
+}
+// export const password = `Valantis_${dayjs(new Date()).format('YYYYMMDD')}`
+
+export const password = `Valantis_${setCurrentMSKUTC()}`
 export const routes = {
     domain: domain,
     actions: {
