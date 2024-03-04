@@ -6,7 +6,7 @@ import {checkAllList, fetchOnePageProduct, getItemsById} from "@/scripts/redux/t
 import {currentPage, setFiltered} from "@/scripts/redux/slices/counterSlice";
 
 export const ProductsList: React.FC = () => {
-    const list = useSelector((state: any) => state.products.productList)
+    const list_id = useSelector((state: any) => state.products.productList_Id)
     const page = useSelector((state: any) => state.counter.value)
     const filter = useSelector((state: any) => state.counter.filter)
     const filterSubmit = useSelector((state: any) => state.counter.onFilterSubmit)
@@ -22,10 +22,11 @@ export const ProductsList: React.FC = () => {
 
     useEffect(() => {
         // @ts-ignore
-        !isFiltered && dispatch(fetchOnePageProduct(page))
-    }, [page, filterSubmit]);
+        dispatch(fetchOnePageProduct(page, filter))
+    }, [page]);
 
     useEffect(()=> {
+        console.log('ssdfsdf')
         // @ts-ignore
         dispatch(fetchOnePageProduct(page, filter))
         dispatch(currentPage())
@@ -37,11 +38,12 @@ export const ProductsList: React.FC = () => {
         }
     },[filterSubmit])
 
-    useEffect(() => {
-        // @ts-ignore
-        dispatch(getItemsById(list))
-        // @ts-ignore
-    }, [list]);
+    // useEffect(() => {
+    //     // @ts-ignore
+    //     list_id && dispatch(getItemsById(list_id))
+    //     list_id && console.log('aaa',list_id)
+    //     // @ts-ignore
+    // }, [list_id]);
 
     return (<>
         <div className={PL_S.List_body}>

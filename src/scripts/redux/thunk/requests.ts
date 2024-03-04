@@ -6,6 +6,7 @@ import {fillListOfId} from "@/scripts/redux/slices/productsSlice";
 import {RootState} from "@/scripts/redux/slices";
 import {fillListOfItems} from "@/scripts/redux/slices/productItemsSlice";
 import {Filter, maxPages} from "@/scripts/redux/slices/counterSlice";
+import {setOnePage} from "@/scripts/utils/filter";
 
 
 export const checkAllList = createAsyncThunk(
@@ -88,7 +89,13 @@ export const fetchOnePageProduct = (page: number, filter: Filter | undefined): T
             );
 
             !isFilter() && dispatch(maxPages(Math.trunc(await response.data.result.length / 50) + 1))
-            dispatch(fillListOfId(response.data.result));
+            isFilter() && dispatch(fillListOfId(await response.data.result));
+            !isFilter() && console.log('ids: ',setOnePage(await response.data.result))
+            console.log(page - 1)
+            !isFilter() && dispatch(fillListOfId(setOnePage(await response.data.result)[page - 1]))
+            isFilter() && await dispatch(getItemsById(await response.data.result))
+            // @ts-ignore
+            !isFilter() && await dispatch(getItemsById(setOnePage(await response.data.result)[page - 1]))
         } catch (error) {
             console.error("Error fetching data:", error);
             // Обработка ошибки или диспетч дополнительного action в случае неудачи
@@ -97,7 +104,7 @@ export const fetchOnePageProduct = (page: number, filter: Filter | undefined): T
 };
 
 export const getItemsById = (list: []): ThunkAction<Promise<void>, RootState, unknown, any> => {
-    console.log(password)
+    console.log('get items by id',list)
     return async (dispatch) => {
         try {
             const response = await axios.post(

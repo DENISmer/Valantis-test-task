@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ProductState {
-    productList: string[]; // Замените тип на фактический
+    productList_Id: string[]; // Замените тип на фактический
 }
 export interface item {
     brand?: string,
@@ -11,7 +11,7 @@ export interface item {
 }
 
 const initialStateOfIds: ProductState = {
-    productList: [],
+    productList_Id: [],
 };
 
 export const productSlice = createSlice({
@@ -19,7 +19,7 @@ export const productSlice = createSlice({
     initialState: initialStateOfIds,
     reducers: {
         fillListOfId: (state, action: PayloadAction<string[]>) => {
-            state.productList = action.payload;
+            state.productList_Id = action.payload;
         }
     },
 });
