@@ -2,7 +2,7 @@ import PL_S from '@/components/products/productsList/ProductListStyles.module.sc
 import {ProductCard} from "@/components/products/productsCard/ProductCard";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {checkAllList, fetchOnePageProduct, getItemsById} from "@/scripts/redux/thunk/requests";
+import {checkAllList, fetchOnePageProduct, getIdsByFilter, getItemsById} from "@/scripts/redux/thunk/requests";
 import {currentPage, setFiltered} from "@/scripts/redux/slices/counterSlice";
 
 export const ProductsList: React.FC = () => {
@@ -12,6 +12,7 @@ export const ProductsList: React.FC = () => {
     const filterSubmit = useSelector((state: any) => state.counter.onFilterSubmit)
     const isFiltered = useSelector((state: any) => state.counter.isFiltered)
     const listWithCardData = useSelector((state: any) => state.itemsList.itemsList)
+    const filteredList = useSelector((state: any) => state.filterLists.idsFilteredLists)
 
     const dispatch = useDispatch()
 
@@ -22,13 +23,20 @@ export const ProductsList: React.FC = () => {
 
     useEffect(() => {
         // @ts-ignore
-        dispatch(fetchOnePageProduct(page, filter))
+        !isFiltered && dispatch(fetchOnePageProduct(page, filter))
     }, [page]);
+
+    useEffect(() => {
+        // @ts-ignore
+        isFiltered && filteredList && dispatch(getItemsById(filteredList[page - 1]))
+        console.log(filteredList)
+    },[page, filteredList])
 
     useEffect(()=> {
         console.log('ssdfsdf')
         // @ts-ignore
-        dispatch(fetchOnePageProduct(page, filter))
+        // dispatch(fetchOnePageProduct(page, filter))
+        dispatch(getIdsByFilter(page, filter))
         dispatch(currentPage())
         // @ts-ignore
         if(!filter.product && !filter.price && !filter.brand){
@@ -49,7 +57,7 @@ export const ProductsList: React.FC = () => {
         <div className={PL_S.List_body}>
             {/*{list && list[0]}*/}
             {listWithCardData && listWithCardData.map((item, index)=>(
-                <ProductCard key={index} data={item}/>
+                <ProductCard key={index} data={item} counter={index}/>
             ))}
         </div>
     </>)
