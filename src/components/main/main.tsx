@@ -6,9 +6,9 @@ import {ProductsBar} from "@/components/products/productsBar/ProductsBar";
 function Main (){
     return (<>
         <div className={style.main}>
-            <div className={style.header}>
-                header
-            </div>
+            {/*<div className={style.header}>*/}
+            {/*    header*/}
+            {/*</div>*/}
             <div className={style.content}>
                 <ProductsBar />
                 <ProductsList />

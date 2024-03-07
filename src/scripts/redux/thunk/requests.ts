@@ -4,9 +4,11 @@ import axios from "axios";
 import {md5} from "js-md5";
 import {RootState} from "@/scripts/redux/slices";
 import {fillListOfItems} from "@/scripts/redux/slices/productItemsSlice";
-import {Filter, maxPages} from "@/scripts/redux/slices/counterSlice";
-import {setOnePage} from "@/scripts/utils/filter";
+import {Filter, maxPages, setLoading} from "@/scripts/redux/slices/counterSlice";
+import {removeSimilarIds, setOnePage} from "@/scripts/utils/filter";
 import {filtered} from "@/scripts/redux/slices/productFilteredSlice";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 
 export const checkAllList = createAsyncThunk(
@@ -36,10 +38,14 @@ export const checkAllList = createAsyncThunk(
         }
     }
 );
-export const fetchOnePageProduct = (page: number): ThunkAction<Promise<void>, RootState, unknown, any> => {
-
+export const fetchOnePageProduct = (page: number, abortController: AbortController): ThunkAction<Promise<void>, RootState, unknown, any> => {
     return async (dispatch) => {
+
+        // Создаем новый AbortController
+        const newAbortController = new AbortController();
+
         try {
+            dispatch(setLoading(true))
             const response = await axios.post(
                 routes.domain,
                 {
@@ -50,6 +56,7 @@ export const fetchOnePageProduct = (page: number): ThunkAction<Promise<void>, Ro
                     }
                 },
                 {
+                    signal: newAbortController.signal,
                     headers: {
                         "X-Auth": md5(password),
                     },
@@ -66,6 +73,7 @@ export const fetchOnePageProduct = (page: number): ThunkAction<Promise<void>, Ro
             // @ts-ignore
             // !isFilter() && await dispatch(getItemsById(setOnePage(await response.data.result)[page - 1]))
         } catch (error) {
+            // dispatch(setLoading(false))
             console.error("Error fetching data:", error);
             // return fetchOnePageProduct(page, filter)
             // Обработка ошибки или диспетч дополнительного action в случае неудачи
@@ -128,28 +136,52 @@ export const getIdsByFilter = (page: number, filter: Filter): ThunkAction<Promis
     }
 }
 
-export const getItemsById = (list: []): ThunkAction<Promise<void>, RootState, unknown, any> => {
+export const getItemsById = (list: string[]): ThunkAction<Promise<void>, RootState, unknown, any> => {
     console.log('get items by id',list)
     return async (dispatch) => {
+        dispatch(setLoading(true))
         try {
-            const response = await axios.post(
-                routes.domain,
-                {
-                    action: routes.actions.get_items,
-                    params: {ids: list},
-                },
-                {
-                    headers: {
-                        "X-Auth": md5(password),
+            const fetchData = async () => {
+                return await axios.post(
+                    routes.domain,
+                    {
+                        action: routes.actions.get_items,
+                        params: {ids: list},
                     },
-                }
-            );
+                    {
+                        headers: {
+                            "X-Auth": md5(password),
+                        },
+                    }
+                );
+            };
 
-            console.log(response.data.result);
-            dispatch(fillListOfItems(response.data.result));
+            const maxRetries = 3;
+            let retries = 0;
+            let error;
+
+            while (retries < maxRetries) {
+                try {
+                    const response = await fetchData();
+                    dispatch(fillListOfItems(removeSimilarIds(await response.data.result)));
+                    dispatch(setLoading(false));
+                    return; // Выходим из цикла, если запрос выполнен успешно
+                } catch (err) {
+                    if (err.response && err.response.status === 500) {
+                        error = err;
+                        retries++; // Увеличиваем счетчик попыток
+                        await new Promise(resolve => setTimeout(resolve, 1000)); // Ждем 1 секунду перед повторной попыткой
+                    } else {
+                        // Если это не ошибка 500, то выбрасываем её дальше
+                        throw err;
+                    }
+                }
+            }
+
+            throw error;
+
         } catch (error) {
             console.error("Error fetching data:", error);
-            // Обработка ошибки или диспетч дополнительного action в случае неудачи
         }
     };
 };

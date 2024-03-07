@@ -2,16 +2,92 @@
   position: relative;
 
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
 
-  margin-bottom: 10px;
+  margin: 0 10px 0 0;
   padding: 5px;
 
-  width: 98%;
-  height: 70px;
+  min-width: 270px;
+  width: 27%;
+  height: 350px;
   min-height: 70px;
 
+  //word-wrap: break-word;
+  font-family: "Roboto Thin", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+
+  border: 1px solid black;
   border-radius: 10px;
-  background: rgb(141, 180, 222);
+
+  background: rgb(252, 252, 252);
+
+  .Card_text {
+    display: flex;
+    flex-direction: column;
+
+
+    justify-content: flex-start;
+    align-items: center;
+    margin: 30px 0 0 0;
+
+    gap: 10px;
+  }
+}
+.Card_body_loading {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  margin: 0 10px 0 0;
+  padding: 5px;
+
+  min-width: 270px;
+  width: 27%;
+  height: 350px;
+  min-height: 70px;
+
+  //word-wrap: break-word;
+  font-family: "Roboto Thin", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+
+  border: 1px solid rgba(224, 206, 206, 0.34);
+  border-radius: 10px;
+
+  background: linear-gradient(-90deg, rgba(227, 183, 169, 0), rgba(220, 132, 166, 0), rgba(179, 202, 213, 0.89), rgba(255, 255, 255, 0.88));
+  background-size: 400% 400%;
+  animation: gradient 7s ease infinite;
+
+  .Card_text {
+  display: flex;
+  flex-direction: column;
+
+
+  justify-content: flex-start;
+  align-items: center;
+  margin: 30px 0 0 0;
+
+  gap: 10px;
+}
+
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 96% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

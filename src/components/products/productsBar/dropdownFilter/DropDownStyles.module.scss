@@ -1,0 +1,35 @@
+.Dropdown_body{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+
+  box-shadow: 2px 2px 6px;
+  border-radius: 5px;
+
+  width: 200px;
+  height: max-content;
+  background: #fafafa;
+  z-index: 10000;
+
+  .submit_but {
+    border: none;
+    border-radius: 3px;
+    background-color: #7c9644;
+    transition: 0.3s;
+    margin: 5px;
+    padding: 3px;
+    &:hover {
+      background-color: #99d71e;
+    }
+  }
+
+  .filter_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    margin: 5px;
+  }
+}

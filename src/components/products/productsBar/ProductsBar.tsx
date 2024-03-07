@@ -8,6 +8,8 @@ import {DropDown} from "@/components/products/productsBar/dropdownFilter/DropDow
 export const ProductsBar: React.FC = () => {
     const count = useSelector((state: any) => state.counter.value)
     const maxPages = useSelector((state: any) => state.counter.max)
+    const isLoading = useSelector((state: any) => state.counter.isLoading)
+    const filter = useSelector((state: any) => state.counter.filter)
 
     const list = useSelector((state: any) => state.products.list)
 
@@ -15,14 +17,11 @@ export const ProductsBar: React.FC = () => {
 
     return (<>
         <div className={PB_S.Bar_body}>
-
-            <input placeholder={'search'}
-                   type={"text"}
-            />
             {/*// @ts-ignore*/}
-            <button onClick={() => dispatch(decrement())}>{'<'}</button>
+            <button disabled={isLoading} onClick={() => dispatch(decrement())}>{'<'}</button>
             {maxPages && <span>{`${count} of ${maxPages}`}</span>}
-            <button onClick={() => dispatch(increment())}>{'>'}</button>
+            <button disabled={isLoading} onClick={() => dispatch(increment())}>{'>'}</button>
+            {/*{filter.price && <span>{filter.price}</span>}*/}
             {/*<button onClick={() => dispatch()}>-</button>*/}
             <DropDown />
         </div>

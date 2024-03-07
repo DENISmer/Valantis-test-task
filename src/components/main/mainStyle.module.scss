@@ -11,7 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   background: #eee8e7;
 
   width: 100%;
@@ -35,7 +35,7 @@ body {
     width: 90%;
     max-width: 1300px;
 
-    height: 75%;
+    height: 85%;
 
     border-radius: 10px;
     background: #777575;

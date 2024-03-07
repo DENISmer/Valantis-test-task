@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {filterState, filterSubmit, setFiltered} from "@/scripts/redux/slices/counterSlice";
-
+import D_S from '@/components/products/productsBar/dropdownFilter/DropDownStyles.module.scss'
 export const DropDown: React.FC = () => {
     const [isActive, setIsActive] = useState<boolean>(false)
     const isFiltered = useSelector((state: any) => state.counter.isFiltered)
@@ -71,27 +71,31 @@ export const DropDown: React.FC = () => {
         <button onClick={() => changeDropDownVis()}>
             filter
         </button>
-        {isActive && <div style={{display: "flex", flexDirection: "column", zIndex: 10000}}>
-            <div>
+        {isActive && <div className={D_S.Dropdown_body} >
+            <div className={D_S.filter_item}>
                 <label htmlFor="">product</label>
                 <input type="text"
+                       value={filter.product}
                        onChange={(e) =>
                            filterChangesName(e.target.value, 'prod')}
                 />
             </div>
-            <div>
+            <div className={D_S.filter_item}>
                 <label htmlFor="">brand</label>
+
                 <input type="text"
+                       value={filter.brand}
                        onChange={(e) =>
                            filterChangesName(e.target.value, 'brand')}/>
             </div>
-            <div>
+            <div className={D_S.filter_item}>
                 <label htmlFor="">cost</label>
                 <input type="number"
+                       value={filter.price}
                        onChange={(e) =>
                            filterChangesName(Number(e.target.value), 'cost')}/>
             </div>
-            <button onClick={() =>dispatch(filterSubmit())}>submit</button>
+            <button className={D_S.submit_but} onClick={() =>dispatch(filterSubmit())}>submit</button>
 
         </div>}
         <div>

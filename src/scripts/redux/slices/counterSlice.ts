@@ -10,7 +10,8 @@ interface State {
     max: number,
     filter: Filter,
     onFilterSubmit: number,
-    isFiltered: boolean
+    isFiltered: boolean,
+    isLoading: boolean
 }
 // Начальное значение
 const initialState: State = {
@@ -18,6 +19,7 @@ const initialState: State = {
     max: 0,
     onFilterSubmit: 0,
     isFiltered: false,
+    isLoading: false,
     filter: {
         product: null,
         price: null,
@@ -52,10 +54,13 @@ const counterSlice = createSlice({
         },
         setFiltered: (state,action) => {
             state.isFiltered = action.payload
+        },
+        setLoading: (state, action) => {
+          state.isLoading = action.payload
         }
     },
 });
 
-export const { increment, decrement,setFiltered,maxPages, filterState, filterSubmit,currentPage} = counterSlice.actions;
+export const { setLoading,increment, decrement,setFiltered,maxPages, filterState, filterSubmit,currentPage} = counterSlice.actions;
 
 export default counterSlice.reducer;
