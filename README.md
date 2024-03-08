@@ -28,10 +28,10 @@ npm install
 3. run the required script:
 ```js
     "start": "cross-env SERVE=true webpack serve --mode development" // run dev-server
-    "build": "webpack" // simple build
-    "build-prod": "webpack --mode=production" // create production build
-    "local-deploy": "npx serve -s build" // local deploying (if a build was previously made)
-    "deploy": "gh-pages -d build" // deploying on gh-pages (if a build was previously made)
-    "clean": "rd /s /q build" // clean the build derictory
-    "cb-dep": "npm run clean && npm run build-prod && npm run deploy" // clean ./build -> create production build -> deploy on gh-pages
+    "docs": "webpack" // simple docs
+    "docs-prod": "webpack --mode=production" // create production docs
+    "local-deploy": "npx serve -s docs" // local deploying (if a docs was previously made)
+    "deploy": "gh-pages -d docs" // deploying on gh-pages (if a docs was previously made)
+    "clean": "rd /s /q docs" // clean the docs derictory
+    "cb-dep": "npm run clean && npm run docs-prod && npm run deploy" // clean ./docs -> create production docs -> deploy on gh-pages
 ```

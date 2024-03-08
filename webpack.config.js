@@ -56,12 +56,12 @@ module.exports = {
         port: port ?? 3000,
         open : true,
         historyApiFallback: true,
-        static: './build',
+        static: './docs',
         hot: mode === 'development',
     },
 
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'docs'),
         filename: "[name].[contenthash].js",
         assetModuleFilename: 'assets/[name][hash][ext][query]',
         clean: true,
