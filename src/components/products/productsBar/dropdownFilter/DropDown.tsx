@@ -2,6 +2,8 @@ import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {filterState, filterSubmit, setFiltered} from "@/scripts/redux/slices/counterSlice";
 import D_S from '@/components/products/productsBar/dropdownFilter/DropDownStyles.module.scss'
+import submitIcon from '@/assets/icons/submit_filter.svg'
+import clearFilterIcon from '@/assets/icons/clear_filter.svg'
 export const DropDown: React.FC = () => {
     const [isActive, setIsActive] = useState<boolean>(false)
     const isFiltered = useSelector((state: any) => state.counter.isFiltered)
@@ -67,11 +69,28 @@ export const DropDown: React.FC = () => {
         setIsActive(!isActive)
     }
 
+    const onSubmit = () => {
+        dispatch(filterSubmit())
+        changeDropDownVis()
+    }
+
+    const onClearFilter = () => {
+        dispatch(filterState(
+            {
+                product: null,
+                price: null,
+                brand: null
+            }))
+        dispatch(filterSubmit())
+        changeDropDownVis()
+    }
+
     return (<>
-        <button onClick={() => changeDropDownVis()}>
+        <button className={D_S.dropdown_show_button}
+            onClick={() => changeDropDownVis()}>
             filter
         </button>
-        {isActive && <div className={D_S.Dropdown_body} >
+        <div className={isActive ? D_S.Dropdown_body_enable : D_S.Dropdown_body_disable}>
             <div className={D_S.filter_item}>
                 <label htmlFor="">product</label>
                 <input type="text"
@@ -95,9 +114,21 @@ export const DropDown: React.FC = () => {
                        onChange={(e) =>
                            filterChangesName(Number(e.target.value), 'cost')}/>
             </div>
-            <button className={D_S.submit_but} onClick={() =>dispatch(filterSubmit())}>submit</button>
+            <div>
+                <button className={D_S.submit_but}
+                        title={'apply'}
+                        onClick={() => onSubmit()}>
+                    <img src={submitIcon} alt=""/>
+                </button>
+                <button className={D_S.clear_but}
+                        title={'clear filter'}
+                        onClick={() => onClearFilter()}>
+                    <img src={clearFilterIcon} alt=""/>
+                </button>
+            </div>
 
-        </div>}
+
+        </div>
         <div>
 
         </div>

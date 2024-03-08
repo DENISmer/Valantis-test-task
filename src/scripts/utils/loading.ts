@@ -51,6 +51,36 @@ export const loadingData: loading = {
             price: null,
             product: 'loading',
             id: 'loading'
+        },{
+            brand: 'loading',
+            price: null,
+            product: 'loading',
+            id: 'loading'
+        },{
+            brand: 'loading',
+            price: null,
+            product: 'loading',
+            id: 'loading'
+        },{
+            brand: 'loading',
+            price: null,
+            product: 'loading',
+            id: 'loading'
+        },{
+            brand: 'loading',
+            price: null,
+            product: 'loading',
+            id: 'loading'
+        },{
+            brand: 'loading',
+            price: null,
+            product: 'loading',
+            id: 'loading'
+        },{
+            brand: 'loading',
+            price: null,
+            product: 'loading',
+            id: 'loading'
         }
     ]
 }

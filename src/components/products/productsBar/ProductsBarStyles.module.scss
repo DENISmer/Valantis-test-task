@@ -1,15 +1,75 @@
 .Bar_body {
   position: relative;
 
-  width: 99%;
+  width: max-content;
   height: 50px;
   max-height: 50px;
 
-  margin: 5px;
-  padding: 3px;
+  padding-left: 1px;
 
   display: flex;
   flex-direction: row;
+  align-items: center;
 
-  background: rgba(220, 205, 205, 0);
+  border-radius: 10px;
+
+  background: rgba(119, 131, 147, 0.71);
+
+  .button_next_prev {
+
+    border: none;
+    border-radius: 50px;
+
+    width: 30px;
+    height: 30px;
+
+    margin: 0 5px 0 5px;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(86, 110, 203, 0.35);
+
+    transition: 0.3s;
+    &:hover {
+      background-color: rgba(20, 83, 150, 0.47);
+    }
+  }
+
+  .button_page_number {
+    justify-content: center;
+    font-family: "Roboto Thin", sans-serif;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 3px;
+
+    width: 30px;
+    height: 30px;
+
+    margin: 0 7px 0 7px;
+
+    background-color: rgba(255, 250, 250, 0.21);
+
+    transition: 0.3s;
+    &:hover {
+      background-color: rgba(20, 83, 150, 0.47);
+    }
+  }
+  .button_page_number_active {
+    font-family: "Roboto Thin", sans-serif;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 3px;
+
+    width: 30px;
+    height: 30px;
+
+    margin: 0 7px 0 7px;
+
+    background-color: rgba(20, 83, 150, 0.47);
+
+    transition: 0.3s;
+  }
 }

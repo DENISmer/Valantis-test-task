@@ -2,6 +2,7 @@ import React from "react";
 import style from "@/components/main/mainStyle.module.scss"
 import {ProductsList} from "@/components/products/productsList/ProductsList";
 import {ProductsBar} from "@/components/products/productsBar/ProductsBar";
+import {DropDown} from "@/components/products/productsBar/dropdownFilter/DropDown";
 
 function Main (){
     return (<>
@@ -10,12 +11,13 @@ function Main (){
             {/*    header*/}
             {/*</div>*/}
             <div className={style.content}>
-                <ProductsBar />
+                <DropDown />
                 <ProductsList />
+                <ProductsBar />
             </div>
-            <div className={style.footer}>
-                footer
-            </div>
+            {/*<div className={style.footer}>*/}
+            {/*    footer*/}
+            {/*</div>*/}
         </div>
     </>)
 }

@@ -3,16 +3,16 @@
 
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: flex-start;
 
   margin: 0 10px 0 0;
-  padding: 5px;
+  padding: 10px;
 
   min-width: 270px;
-  width: 27%;
-  height: 350px;
+  width: 15%;
+  height: 250px;
   min-height: 70px;
 
   //word-wrap: break-word;
@@ -20,23 +20,41 @@
   font-size: 18px;
   font-weight: bold;
 
-  border: 1px solid black;
+  //border: 1px solid black;
   border-radius: 10px;
 
-  background: rgb(252, 252, 252);
+  background: rgba(25, 40, 110, 0.29);
+  transition: 0.3s;
+  .image_block {
+    border-radius: 6px;
+  }
 
   .Card_text {
     display: flex;
     flex-direction: column;
 
-
-    justify-content: flex-start;
-    align-items: center;
-    margin: 30px 0 0 0;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 10px 0 0 0;
 
     gap: 10px;
+    .price_style {
+      cursor: pointer;
+      color: #2f7700;
+      &:hover {
+        color: #389300;
+      }
+    }
+    span {
+      text-align: left;
+      cursor: pointer;
+    }
+  }
+  &:hover {
+    background: rgba(49, 60, 112, 0.39);
   }
 }
+
 .Card_body_loading {
   position: relative;
 
@@ -47,11 +65,11 @@
   align-items: flex-start;
 
   margin: 0 10px 0 0;
-  padding: 5px;
+  padding: 10px;
 
   min-width: 270px;
-  width: 27%;
-  height: 350px;
+  width: 15%;
+  height: 250px;
   min-height: 70px;
 
   //word-wrap: break-word;
@@ -59,12 +77,16 @@
   font-size: 18px;
   font-weight: bold;
 
-  border: 1px solid rgba(224, 206, 206, 0.34);
+  box-shadow: 0 0 3px white;
   border-radius: 10px;
 
-  background: linear-gradient(-90deg, rgba(227, 183, 169, 0), rgba(220, 132, 166, 0), rgba(179, 202, 213, 0.89), rgba(255, 255, 255, 0.88));
+  background: linear-gradient(-90deg, rgba(10, 10, 10, 0.02), rgba(87, 83, 83, 0.37), rgba(232, 232, 232, 0.3), rgba(255, 255, 255, 0));
   background-size: 400% 400%;
   animation: gradient 7s ease infinite;
+
+  .image_block {
+    border-radius: 6px;
+  }
 
   .Card_text {
   display: flex;

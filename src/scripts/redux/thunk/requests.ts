@@ -126,7 +126,7 @@ export const getIdsByFilter = (page: number, filter: Filter): ThunkAction<Promis
                 }
             );
             dispatch(maxPages(Math.trunc(await response.data.result.length / 50) + 1))
-            await dispatch(filtered(setOnePage(await response.data.result)))
+            dispatch(filtered(setOnePage(await response.data.result)))
             console.log('data after ',setOnePage(await response.data.result)[page - 1])
         } catch (error){
             console.log(error)

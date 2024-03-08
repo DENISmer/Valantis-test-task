@@ -42,6 +42,9 @@ const counterSlice = createSlice({
         currentPage: (state) => {
             state.value = 1
         },
+        setCurrentPage: (state, action) => {
+          state.value = action.payload
+        },
         maxPages: (state,action) => {
             state.max = action.payload
         },
@@ -61,6 +64,6 @@ const counterSlice = createSlice({
     },
 });
 
-export const { setLoading,increment, decrement,setFiltered,maxPages, filterState, filterSubmit,currentPage} = counterSlice.actions;
+export const { setCurrentPage,setLoading,increment, decrement,setFiltered,maxPages, filterState, filterSubmit,currentPage} = counterSlice.actions;
 
 export default counterSlice.reducer;
