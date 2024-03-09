@@ -49,7 +49,6 @@ const counterSlice = createSlice({
             state.max = action.payload
         },
         filterState: (state, action) => {
-            console.log('filter: ',action.payload)
           state.filter = action.payload
         },
         filterSubmit: (state) => {

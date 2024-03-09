@@ -15,18 +15,16 @@ export const ProductsList: React.FC = () => {
     const listWithCardData = useSelector((state: any) => state.itemsList.itemsList)
     const filteredList = useSelector((state: any) => state.filterLists.idsFilteredLists)
     const isLoading = useSelector((state: any) => state.counter.isLoading)
-    const dispatch = useDispatch()
+
+    const dispatch = useDispatch<any>()
 
     useEffect(() => {
-        // @ts-ignore
-        dispatch(checkAllList())
+        dispatch(checkAllList(null))
     }, []);
 
     useEffect(() => {
-        let isFetching = true;
         async function fetch(){
             try{
-                // @ts-ignore
                 dispatch(fetchOnePageProduct(page))
             }
             catch (error) {
@@ -34,42 +32,31 @@ export const ProductsList: React.FC = () => {
             }
 
         }
+
         !isFiltered && fetch()
+
     }, [page]);
 
     useEffect(() => {
-        // @ts-ignore
         isFiltered && filteredList && dispatch(getItemsById(filteredList[page - 1]))
-        console.log(filteredList)
     },[page, filteredList])
 
     useEffect(()=> {
-        console.log('ssdfsdf')
-        // @ts-ignore
-        // dispatch(fetchOnePageProduct(page, filter))
         dispatch(getIdsByFilter(page, filter))
         dispatch(currentPage())
-        // @ts-ignore
+
         if(!filter.product && !filter.price && !filter.brand){
+
             dispatch(setFiltered(false))
             dispatch(currentPage())
-            // @ts-ignore
+
             dispatch(fetchOnePageProduct(page))
-            // @ts-ignore
-            dispatch(checkAllList())
+            dispatch(checkAllList(list_id))
         }
     },[filterSubmit])
 
-    // useEffect(() => {
-    //     // @ts-ignore
-    //     list_id && dispatch(getItemsById(list_id))
-    //     list_id && console.log('aaa',list_id)
-    //     // @ts-ignore
-    // }, [list_id]);
-
     return (<>
         <div className={PL_S.List_body}>
-            {/*{list && list[0]}*/}
             {isLoading ?
                 loadingData.loadingData.map((item, index) => (
                     <ProductCard key={index} data={item} counter={index}/>

@@ -14,7 +14,6 @@ export const filteredSlice = createSlice({
     initialState: FilteredIds,
     reducers: {
         filtered: (state, action) => {
-            console.log('filtered state', action.payload)
             state.idsFilteredLists = action.payload
         }
     }

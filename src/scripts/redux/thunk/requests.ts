@@ -13,14 +13,16 @@ import error = Simulate.error;
 
 export const checkAllList = createAsyncThunk(
     'pages/checkAllList',
-    async (param: [] | null, { dispatch }) => {
+    async (param: [] | undefined, { dispatch }) => {
+        const data = {
+            action: routes.actions.get_ids,
+            params: param ? {ids: param} : {ids: []}
+        }
+
         try {
             const response = await axios.post(
                 routes.domain,
-                {
-                    action: routes.actions.get_ids,
-                    params: {ids: param},
-                },
+                    data,
                 {
                     headers: {
                         "X-Auth": md5(password),
@@ -34,54 +36,59 @@ export const checkAllList = createAsyncThunk(
 
             }
             console.error("Error fetching data:", error);
-            // Обработка ошибки или диспетч дополнительного action в случае неудачи
         }
     }
 );
-export const fetchOnePageProduct = (page: number, abortController: AbortController): ThunkAction<Promise<void>, RootState, unknown, any> => {
+export const fetchOnePageProduct = (page: number): ThunkAction<Promise<void>, RootState, unknown, any> => {
     return async (dispatch) => {
-
-        // Создаем новый AbortController
-        const newAbortController = new AbortController();
 
         try {
             dispatch(setLoading(true))
-            const response = await axios.post(
-                routes.domain,
-                {
-                    action: routes.actions.get_ids,
-                    params: {
-                        offset: page === 1 ? page : (page - 1) * 50,
-                        limit: 50
-                    }
-                },
-                {
-                    signal: newAbortController.signal,
-                    headers: {
-                        "X-Auth": md5(password),
+            const fetchData = async () => {
+                return await axios.post(
+                    routes.domain,
+                    {
+                        action: routes.actions.get_ids,
+                        params: {
+                            offset: page === 1 ? page : (page - 1) * 50,
+                            limit: 50
+                        }
                     },
-                }
-            );
+                    {
+                        headers: {
+                            "X-Auth": md5(password),
+                        },
+                    }
+                );
+            }
 
-            //dispatch(maxPages(Math.trunc(await response.data.result.length / 50) + 1))
-            // dispatch(fillListOfId(await response.data.result));
-            // !isFilter() && console.log('ids: ',setOnePage(await response.data.result))
-            // console.log(page - 1)
-            // !isFilter() && dispatch(fillListOfId(setOnePage(await response.data.result)[page - 1]))
-            console.log('data from fetch one page ',await response.data.result)
-            await dispatch(getItemsById(await response.data.result))
-            // @ts-ignore
-            // !isFilter() && await dispatch(getItemsById(setOnePage(await response.data.result)[page - 1]))
+            const maxRetries = 3;
+            let retries = 0;
+            let error;
+
+            while (retries < maxRetries) {
+                try {
+                    const response = await fetchData()
+                    await dispatch(getItemsById(await response.data.result))
+                    return;
+                } catch (err) {
+                    if (err.response && err.response.status === 500) {
+                        error = err;
+                        retries++;
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    } else {
+                        throw err;
+                    }
+                }
+            }
+            throw error;
         } catch (error) {
-            // dispatch(setLoading(false))
             console.error("Error fetching data:", error);
-            // return fetchOnePageProduct(page, filter)
-            // Обработка ошибки или диспетч дополнительного action в случае неудачи
         }
     };
 };
 
-export const getIdsByFilter = (page: number, filter: Filter): ThunkAction<Promise<void>, RootState, unknown, any> => {
+export const getIdsByFilter = (page: number, filter: Filter): ThunkAction<Promise<void>, RootState, unknown, any>  => {
     let filterData : Filter
     let data = null;
     const isFilter = (): boolean => {
@@ -112,7 +119,7 @@ export const getIdsByFilter = (page: number, filter: Filter): ThunkAction<Promis
     } else {
 
     }
-    return async (dispatch) => {
+    return async (dispatch): Promise<void> => {
         try {
             const response = await axios.post(
                 routes.domain,
@@ -127,7 +134,7 @@ export const getIdsByFilter = (page: number, filter: Filter): ThunkAction<Promis
             );
             dispatch(maxPages(Math.trunc(await response.data.result.length / 50) + 1))
             dispatch(filtered(setOnePage(await response.data.result)))
-            console.log('data after ',setOnePage(await response.data.result)[page - 1])
+            // console.log('data after ',setOnePage(await response.data.result)[page - 1])
         } catch (error){
             console.log(error)
         }
@@ -137,7 +144,6 @@ export const getIdsByFilter = (page: number, filter: Filter): ThunkAction<Promis
 }
 
 export const getItemsById = (list: string[]): ThunkAction<Promise<void>, RootState, unknown, any> => {
-    console.log('get items by id',list)
     return async (dispatch) => {
         dispatch(setLoading(true))
         try {
@@ -165,19 +171,17 @@ export const getItemsById = (list: string[]): ThunkAction<Promise<void>, RootSta
                     const response = await fetchData();
                     dispatch(fillListOfItems(removeSimilarIds(await response.data.result)));
                     dispatch(setLoading(false));
-                    return; // Выходим из цикла, если запрос выполнен успешно
+                    return;
                 } catch (err) {
                     if (err.response && err.response.status === 500) {
                         error = err;
                         retries++; // Увеличиваем счетчик попыток
                         await new Promise(resolve => setTimeout(resolve, 1000)); // Ждем 1 секунду перед повторной попыткой
                     } else {
-                        // Если это не ошибка 500, то выбрасываем её дальше
                         throw err;
                     }
                 }
             }
-
             throw error;
 
         } catch (error) {

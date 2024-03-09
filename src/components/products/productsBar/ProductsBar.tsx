@@ -30,7 +30,7 @@ export const ProductsBar: React.FC = () => {
             setButtonGroup({id: buttonGroup.id + 1, list: buttonsList})
         }
         else if (count < buttonGroup.list[0].value){
-            for(let i = count - 5; i <= count; i++){
+            for(let i = count - 4; i <= count; i++){
                 buttonsList.push({value: i})
             }
             setButtonGroup({id: buttonGroup.id - 1, list: buttonsList})
@@ -42,7 +42,7 @@ export const ProductsBar: React.FC = () => {
                 setButtonGroup({id: buttonGroup.id + 1, list: buttonsList})
             }
             else {
-                for(let i = count; i <= count + 5; i++){
+                for(let i = count; i <= count + 4; i++){
                     buttonsList.push({value: i})
                 }
                 setButtonGroup({id: buttonGroup.id + 1, list: buttonsList})
