@@ -1,37 +1,28 @@
-Hi! 
-## Initially, a project was made according to [this article](https://habr.com/ru/articles/597389/), and also described in [this repository](https://github.com/eadenink/webpack-5-react-config) and [this](https://github.com/DENISmer/webpack5-react-config), but the configuration described in these links did not suit me for several reasons:
+## Hi! 
+# valantis test task
+### filter dropdown
 
-1. no TS support.
-1. no support for scss modules.
-1. and etc.
+To open filter dropdown click on the 'filter button':
+![image](https://github.com/DENISmer/valantis-test-task/assets/90347179/66c3380a-e1b2-441f-ba09-3f1831d1f307)
 
-## This webpack5 configuration will allow you to use the following core technology stack:
-1. React
-1. TS
-1. CSS
-1. SCSS
-1. SCSS modules
-1. support for the following file extensions:
-(png|jpe?g|gif|svg|webp|ico) and (woff2?|eot|ttf|otf)
-1. and etc.
+1. submit filter and close drdw
+2. reset filter and close drdw
+3. close dropdown
+   
+![image](https://github.com/DENISmer/valantis-test-task/assets/90347179/a045eb39-5ff2-4e53-87b2-747f48dc3dd3)
 
-## All you need to use this config:
 
-1. clone this repository
-```
-git clone https://github.com/DENISmer/webpack5-react-ts-config
-```
-2. installing dependencies
-```
-npm install
-```
-3. run the required script:
-```js
-    "start": "cross-env SERVE=true webpack serve --mode development" // run dev-server
-    "docs": "webpack" // simple docs
-    "docs-prod": "webpack --mode=production" // create production docs
-    "local-deploy": "npx serve -s docs" // local deploying (if a docs was previously made)
-    "deploy": "gh-pages -d docs" // deploying on gh-pages (if a docs was previously made)
-    "clean": "rd /s /q docs" // clean the docs derictory
-    "cb-dep": "npm run clean && npm run docs-prod && npm run deploy" // clean ./docs -> create production docs -> deploy on gh-pages
-```
+
+### pagination
+
+1. previous page
+2. next page
+3. select page
+4. if u on this buuton and press 2 (next page) fill be render next button group of 5 elements
+![image](https://github.com/DENISmer/valantis-test-task/assets/90347179/5eae6ffd-ac9f-48a9-a1d5-d99b29b21db4)
+
+
+
+
+
+
