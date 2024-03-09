@@ -33,9 +33,9 @@ export const checkAllList = createAsyncThunk(
             dispatch(maxPages(Math.trunc(await response.data.result.length / 50) + 1));
         } catch (error) {
             if(error.respons.status === 400){
-                console.error("Error fetching data:", error);
+                console.log("Error fetching data:", error);
             }
-            console.error("Error fetching data:", error);
+            console.log("Error fetching data:", error);
         }
     }
 );
@@ -75,7 +75,7 @@ export const fetchOnePageProduct = (page: number): ThunkAction<Promise<void>, Ro
                     if (err.response && err.response.status === 500 ||  err.response.status === 400) {
                         error = err;
                         retries++;
-                        console.error(err)
+                        console.log(err)
                         await new Promise(resolve => setTimeout(resolve, 1000));
                     } else {
                         throw err;
@@ -84,7 +84,7 @@ export const fetchOnePageProduct = (page: number): ThunkAction<Promise<void>, Ro
             }
             throw error;
         } catch (error) {
-            console.error("Error fetching data:", error);
+            console.log("Error fetching data:", error);
         }
     };
 };
@@ -137,7 +137,7 @@ export const getIdsByFilter = (page: number, filter: Filter): ThunkAction<Promis
             dispatch(filtered(setOnePage(await response.data.result)))
             // console.log('data after ',setOnePage(await response.data.result)[page - 1])
         } catch (error){
-            console.error("Error fetching data:", error);
+            console.log("Error fetching data:", error);
         }
 
 
@@ -177,7 +177,7 @@ export const getItemsById = (list: string[]): ThunkAction<Promise<void>, RootSta
                     if (err.response && err.response.status === 500 ||  err.response.status === 400) {
                         error = err;
                         retries++; // Увеличиваем счетчик попыток
-                        console.error(err)
+                        console.log(err)
                         await new Promise(resolve => setTimeout(resolve, 1000)); // Ждем 1 секунду перед повторной попыткой
                     } else {
                         throw err;
@@ -187,7 +187,7 @@ export const getItemsById = (list: string[]): ThunkAction<Promise<void>, RootSta
             throw error;
 
         } catch (error) {
-            console.error("Error fetching data:", error);
+            console.log("Error fetching data:", error);
         }
     };
 };
