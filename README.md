@@ -1,27 +1,35 @@
 ## Hi! 
 # valantis test task
+
+## development and production builds created by my webpack5 configuration
+![image](https://github.com/DENISmer/valantis-test-task/assets/90347179/eee46935-2489-4106-9713-270682255eee)
+
 ### filter dropdown
 
-To open filter dropdown click on the 'filter button':
-![image](https://github.com/DENISmer/valantis-test-task/assets/90347179/66c3380a-e1b2-441f-ba09-3f1831d1f307)
+![image](https://github.com/DENISmer/valantis-test-task/assets/90347179/49debf40-1c4a-4021-8cfe-35e11284a291)
 
 1. submit filter and close drdw
 2. reset filter and close drdw
 3. close dropdown
-   
-![image](https://github.com/DENISmer/valantis-test-task/assets/90347179/a045eb39-5ff2-4e53-87b2-747f48dc3dd3)
-
-
 
 ### pagination
+
+![image](https://github.com/DENISmer/valantis-test-task/assets/90347179/725f4ccb-f0f5-48b3-af89-ff3d306d6584)
 
 1. previous page
 2. next page
 3. select page
-4. if u on this buuton and press 2 (next page) fill be render next button group of 5 elements
-![image](https://github.com/DENISmer/valantis-test-task/assets/90347179/5eae6ffd-ac9f-48a9-a1d5-d99b29b21db4)
+4. if u on this button and press 2 (next page) fill be render next button group of 5 elements
 
 
+### available few terminal scripts:
+```js
+npm run start // start dev version
+npm run build-prod // make production build
+
+npm local-deploy //deploy build folder on your machine
+npm run deploy //deploy build folder on gh pages
+```
 
 
 
